@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+#
+
+def boom(msg)
+  puts "boom: #{msg}"
+  $opts.to_s
+  exit 1
+end
+
+require 'optparse'
+ARGV.options do |opt| 
+  opt.banner = "usage: --format (HDF|TIF) input geofile output"
+end
+
+input_file = ARGV.shift || boom("I need an input target file")
+puts "I got #{input} as my input file" if $verbose
+
+output_file = ARGV.shift || boom("I need an output target file")
+puts "I got #{output} as my output file" if $verbose
+
+
+
+# input_file
+# geo_file
+# output_file
+# output_format
+require 'erb'
+template = ERB.new( File.read( __FILE__ + ".param_template.erb" ) )
+template.run
+
+
+param_file = "#{output}.params"
+File.open( "#{output}.params", 'w') { |f| f << param_file_template }
