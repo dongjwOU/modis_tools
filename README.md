@@ -7,9 +7,8 @@ MODIS Processing tools for the Geographic Information Network of Alaska
 INSTALL:
 --------
 
-1) Clone the repo
-
-2) Inside the repo run 'bundle install'
+1. Clone the repo
+2. Inside the repo run 'bundle install'
 
 USING THE TOOLS:
 ----------------
