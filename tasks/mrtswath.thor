@@ -23,12 +23,7 @@ class Mrtswath < Thor
       @config[:format] = options['format']
     end
 
-    template('templates/mrtswath.params.erb', 'mrtswath.params', options['force'])
-  end
-
-  desc 'clean', 'Clean up old config files'
-  def clean
-    remove_file 'mrtswath.params'
+    template('templates/mrtswath.params.erb', "#{@config[:output]}.params", options['force'])
   end
 
   desc 'help', 'Show the default help text'
