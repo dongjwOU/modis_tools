@@ -8,6 +8,7 @@ INSTALL:
 --------
 
 1) Clone the repo
+
 2) Inside the repo run 'bundle install'
 
 USING THE TOOLS:
