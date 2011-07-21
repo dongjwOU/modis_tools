@@ -45,11 +45,11 @@ class Mrtswath < Thor
   def determine_format(filename)
     case filename.split('.').last.downcase.to_sym
       when :tif
-        'TIF'
+        'GEOTIFF_FMT'
       when :hdf
-        'HDF'
+        'HDF_FMT'
       else
-        'TIF'
+        'GEOTIFF_FMT'
     end
   end
 end
