@@ -8,11 +8,13 @@ class Mrtswath < Thor
   desc "params INPUT_FILE GEO_FILE OUTPUT_FILE", "generates a params file for mrtswath"
   long_desc "This command will create a params files that can be used with mrtswath based on the options given"
   method_option :format, :type => :string
+  method_option :input_sds, :type => :string, :default => "EV_1KM_RefSB, 1"
   method_option :force, :type => :boolean
 
   def params(input_file, geo_file, output_file)
     @config = {
       :input => input_file,
+      :input_sds => options[:input_sds],
       :geofile => geo_file,
       :output => output_file
     }

@@ -2,7 +2,7 @@ INPUT_FILENAME = "<%= @config[:input] %>"
 
 GEOLOCATION_FILENAME = "<%= @config[:geofile] %>"
 
-INPUT_SDS_NAME = EV_1KM_RefSB, 1
+INPUT_SDS_NAME = <%= @config[:input_sds] %>
 
 OUTPUT_SPATIAL_SUBSET_TYPE = PROJ_COORDS
 
