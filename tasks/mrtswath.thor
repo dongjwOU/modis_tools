@@ -26,9 +26,18 @@ class Mrtswath < Thor
     template('templates/mrtswath.params.erb', "#{@config[:output]}.params", options['force'])
   end
 
-  desc 'help', 'Show the default help text'
-  def help
-    super('params')
+  desc "go PARAMS_FILE", "run the mrtswath program"
+  def go(params_file)
+    puts "Not implemented yet: #{params_file}"  
+  end
+
+  desc "all INPUT_FILE GEO_FILE OUTPUT_FILE", "runs mrtswath after generating a params files"
+  method_option :format, :type => :string
+  method_option :force, :type => :boolean
+  
+  def all(input, geo, output)
+    invoke :params, [input, geo, output]
+    invoke :go, ["#{output}.params"]
   end
 
   protected
