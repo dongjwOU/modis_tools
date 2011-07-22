@@ -5,16 +5,29 @@ class Mrtswath < Thor
     File.join(File.dirname(__FILE__), '..')
   end
 
+  desc "all INPUT_FILE GEO_FILE OUTPUT_FILE", "runs mrtswath after generating a params files"
+  method_option :format, :type => :string
+  method_option :force, :type => :boolean
+  method_option :bands, :type => :string, :default => "1"
+  method_option :band_name, :type => :string, :default => "EV_1KM_RefSB"
+  
+  def all(input, geo, output)
+    invoke :params, [input, geo, output]
+    invoke :go, ["#{output}.params"]
+  end
+
   desc "params INPUT_FILE GEO_FILE OUTPUT_FILE", "generates a params file for mrtswath"
   long_desc "This command will create a params files that can be used with mrtswath based on the options given"
   method_option :format, :type => :string
-  method_option :bands, :type => :string, :default => "EV_1KM_RefSB, 1"
+  method_option :bands, :type => :string, :default => "1"
+  method_option :band_name, :type => :string, :default => "EV_1KM_RefSB"
   method_option :force, :type => :boolean
 
   def params(input_file, geo_file, output_file)
     @config = {
       :input => input_file,
-      :input_sds => options[:bands],
+      :band_name => options[:band_name],
+      :bands => options[:bands],
       :geofile => geo_file,
       :output => output_file
     }
@@ -33,17 +46,7 @@ class Mrtswath < Thor
     cmd = []
     cmd << `which swath2grid`.chomp
     cmd << "-pf=#{params_file}"
-    puts cmd.inspect
-    system(*cmd)
-  end
-
-  desc "all INPUT_FILE GEO_FILE OUTPUT_FILE", "runs mrtswath after generating a params files"
-  method_option :format, :type => :string
-  method_option :force, :type => :boolean
-  
-  def all(input, geo, output)
-    invoke :params, [input, geo, output]
-    invoke :go, ["#{output}.params"]
+    puts system(*cmd)
   end
 
   protected
