@@ -8,13 +8,13 @@ class Mrtswath < Thor
   desc "params INPUT_FILE GEO_FILE OUTPUT_FILE", "generates a params file for mrtswath"
   long_desc "This command will create a params files that can be used with mrtswath based on the options given"
   method_option :format, :type => :string
-  method_option :input_sds, :type => :string, :default => "EV_1KM_RefSB, 1"
+  method_option :bands, :type => :string, :default => "EV_1KM_RefSB, 1"
   method_option :force, :type => :boolean
 
   def params(input_file, geo_file, output_file)
     @config = {
       :input => input_file,
-      :input_sds => options[:input_sds],
+      :input_sds => options[:bands],
       :geofile => geo_file,
       :output => output_file
     }
@@ -30,7 +30,11 @@ class Mrtswath < Thor
 
   desc "go PARAMS_FILE", "run the mrtswath program"
   def go(params_file)
-    puts "Not implemented yet: #{params_file}"  
+    cmd = []
+    cmd << `which swath2grid`.chomp
+    cmd << "-pf=#{params_file}"
+    puts cmd.inspect
+    system(*cmd)
   end
 
   desc "all INPUT_FILE GEO_FILE OUTPUT_FILE", "runs mrtswath after generating a params files"
